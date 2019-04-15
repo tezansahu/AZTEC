@@ -178,7 +178,9 @@ encoderFactory.encode = (config, abiParams, proofType) => {
         abiEncodedParameters = [config.CHALLENGE, ...offsets, ...encodedParameters];
     } else if (proofType === 'burn') {
         abiEncodedParameters = [config.CHALLENGE, ...offsets, ...encodedParameters];
-    } else {
+    } else if (proofType === 'publicRange') {
+        abiEncodedParameters = [config.CHALLENGE, config.PUBLIC_INTEGER, ...offsets, ...encodedParameters];
+    }else {
         throw new Error('incorrect proof name input');
     }
     return `0x${abiEncodedParameters.join('')}`.toLowerCase();
