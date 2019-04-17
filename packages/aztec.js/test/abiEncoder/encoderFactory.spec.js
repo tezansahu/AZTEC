@@ -11,7 +11,6 @@ const mintProof = require('../../src/proof/mint');
 const burnProof = require('../../src/proof/burn');
 const publicRangeProof = require('../../src/proof/publicRange');
 
-
 const abiEncoder = require('../../src/abiEncoder');
 const secp256k1 = require('../../src/secp256k1');
 const note = require('../../src/note');
@@ -431,19 +430,13 @@ describe('abiEncoder.encoderFactory', () => {
             const senderAddress = accounts[0].address;
 
             // Main
-            const { proofData, challenge } = publicRangeProof.constructProof(
-                [...inputNotes, ...outputNotes],
-                u,
-                senderAddress,
-            );
+            const { proofData, challenge } = publicRangeProof.constructProof([...inputNotes, ...outputNotes], u, senderAddress);
 
             const inputOwners = inputNotes.map((m) => m.owner);
             const outputOwners = outputNotes.map((n) => n.owner);
 
             const result = new HexString(
-                abiEncoder.inputCoder
-                    .publicRange(proofData, challenge, u, inputOwners, outputOwners, outputNotes)
-                    .slice(2),
+                abiEncoder.inputCoder.publicRange(proofData, challenge, u, inputOwners, outputOwners, outputNotes).slice(2),
             );
             expect(result.slice(0x00, 0x20)).to.equal(padLeft(challenge.slice(2), 64));
 
