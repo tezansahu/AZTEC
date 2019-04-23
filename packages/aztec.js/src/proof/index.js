@@ -4,6 +4,7 @@ const dividendComputation = require('./dividendComputation');
 const mint = require('./mint');
 const burn = require('./burn');
 const proofUtils = require('./proofUtils');
+const privateRange = require('./privateRange');
 
 module.exports = {
     bilateralSwap,
@@ -12,4 +13,5 @@ module.exports = {
     mint,
     burn,
     proofUtils,
+    privateRange,
 };
