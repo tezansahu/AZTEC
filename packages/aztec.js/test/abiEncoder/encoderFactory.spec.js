@@ -423,7 +423,7 @@ describe('abiEncoder.encoderFactory', () => {
     });
 
     describe('Private range proof', () => {
-        it('should format privateRange properly', () => {
+        it('should format privateRange properly', async () => {
             // Setup
             let accounts = [];
             let notes = [];
@@ -431,9 +431,11 @@ describe('abiEncoder.encoderFactory', () => {
             const numNotes = 3;
             const noteValues = [10, 4, 6];
             accounts = [...new Array(numNotes)].map(() => secp256k1.generateAccount());
-            notes = accounts.map(({ publicKey }, i) => {
-                return note.create(publicKey, noteValues[i]);
-            });
+            notes = await Promise.all(
+                accounts.map(({ publicKey }, i) => {
+                    return note.create(publicKey, noteValues[i]);
+                }),
+            );
 
             const inputNote = notes.slice(0, 1);
             const comparisonNote = notes.slice(1, 2);
