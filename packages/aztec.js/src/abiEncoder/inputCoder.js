@@ -132,8 +132,7 @@ inputCoder.privateRange = (proofData, challenge, inputOwners, outputOwners, meta
     };
 
     const abiParams = ['PROOF_DATA', 'INPUT_OWNERS', 'OUTPUT_OWNERS', 'METADATA'];
-
-    return encoderFactory.encode(configs, abiParams, 'burn');
+    return encoderFactory.encode(configs, abiParams, 'privateRange');
 };
 
 module.exports = inputCoder;
